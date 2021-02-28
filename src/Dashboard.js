@@ -1,11 +1,11 @@
 import './Dashboard.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Chart from 'react-google-charts'
 
 function Dashboard() {
 
   const TITULO = 'Quantidade de cadastros primeiro semestre'
-const ANIMACAO = { duration: 1000, easing: 'out', startup: true}
+  const ANIMACAO = { duration: 1000, easing: 'out', startup: true }
 
   const [dados, setDados] = useState([
     ['Mês', 'Quantidade'],
@@ -16,6 +16,22 @@ const ANIMACAO = { duration: 1000, easing: 'out', startup: true}
     ['Maio', 33],
     ['Junho', 21]
   ])
+
+  useEffect(() => {
+    function alterarDados() {
+      const dadosGrafico = dados.map(linha => {
+        if (Number.isInteger(linha[1])) {
+          linha[1] = Math.floor(Math.random() * 101)
+        }
+        return linha
+      })
+      setDados(dadosGrafico)
+    }
+    const intervalId = setInterval(() => alterarDados(), 5000)
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [dados])
 
   return (
     <div>
@@ -56,9 +72,9 @@ const ANIMACAO = { duration: 1000, easing: 'out', startup: true}
         data={dados}
         options={{
           title: TITULO,
-          chartArea: { width: '50%'},
-          hAxis: {title: 'Quantidade'},
-          xAxis: {title: 'Mês'},
+          chartArea: { width: '50%' },
+          hAxis: { title: 'Quantidade' },
+          xAxis: { title: 'Mês' },
           animation: ANIMACAO
         }}
       />
@@ -69,9 +85,9 @@ const ANIMACAO = { duration: 1000, easing: 'out', startup: true}
         data={dados}
         options={{
           title: TITULO,
-          chartArea: { width: '50%'},
-          hAxis: {title: 'Mês'},
-          xAxis: {title: 'Quatidade'},
+          chartArea: { width: '50%' },
+          hAxis: { title: 'Mês' },
+          xAxis: { title: 'Quatidade' },
           animation: ANIMACAO
         }}
       />
@@ -82,9 +98,9 @@ const ANIMACAO = { duration: 1000, easing: 'out', startup: true}
         data={dados}
         options={{
           title: TITULO,
-          chartArea: { width: '50%'},
-          hAxis: {title: 'Mês'},
-          xAxis: {title: 'Quatidade'},
+          chartArea: { width: '50%' },
+          hAxis: { title: 'Mês' },
+          xAxis: { title: 'Quatidade' },
           animation: ANIMACAO
         }}
       />
